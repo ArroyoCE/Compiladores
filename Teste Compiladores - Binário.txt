@@ -1,0 +1,15 @@
+0 LDA AH
+1 ADD BH
+2 OUT
+3 HLT
+4
+5
+6
+7 02H
+8 03H
+9
+A
+B
+C
+D
+F
