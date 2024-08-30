@@ -42,24 +42,25 @@ def binario_command():
     binario(palavras)
 
 def binario(tokens):
-    print("funcionando")
     text_widget.delete(1.0, tk.END)
-    
     texto_binario = ""
     controle = 0
+    controle2 = 3
     for token in tokens:
         if controle == 4:
             if len(token) == 1:
-                if controle == 3:
+                if controle2 == 3:
                     texto_binario += "0000"
-                elif controle == 1:
-                    texto_binario += "00000000"
+                    controle2 = 1
+                elif controle2 == 1:
+                    if controle2 + len(token) == 2:
+                        texto_binario += "00000000"
+                    else:
+                        texto_binario += format(int(token[:-1], 16), '08b')
                 texto_binario += format(int(token, 16), '04b')
             else:
-                texto_binario += format(int(token[:-1], 16), '08b')    
-               
-            
-            
+                texto_binario += format(int(token[:-1], 16), '08b')   
+                controle2 = 4 
         
         elif len(token) == 1:
             if controle == 3:
@@ -70,12 +71,11 @@ def binario(tokens):
             texto_binario += str(opcode(token))
             controle = 3
             if opcode(token) == "1111":
-                texto_binario += "000000000000"
+                texto_binario += "0000000000000000"
                 controle = 4
         elif len(token) == 2:
             texto_binario += format(int(token[:-1], 16), '04b')
             controle = 2
-    print(texto_binario)
     text_widget.delete(1.0, tk.END)
     text_widget.insert(tk.END, texto_binario)
         
